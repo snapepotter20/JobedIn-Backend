@@ -1,0 +1,93 @@
+{
+  "info": {
+    "name": "JobApp Interview Assignment",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8081" },
+    { "key": "token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"admin@jobapp.com\",\n  \"password\": \"password\"\n}" }
+          }
+        },
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/register",
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"New Candidate\",\n  \"email\": \"new@jobapp.com\",\n  \"password\": \"password\",\n  \"role\": \"CANDIDATE\"\n}" }
+          }
+        },
+        {
+          "name": "Me",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/auth/me"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        { "name": "Dashboard", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/admin/dashboard" } },
+        { "name": "Pending Companies", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/admin/companies/pending" } },
+        { "name": "Verify Company", "request": { "method": "PUT", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/admin/companies/1/verify" } },
+        { "name": "Pending Jobs", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/admin/jobs/pending" } },
+        { "name": "Approve Job", "request": { "method": "PUT", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/admin/jobs/1/approve" } }
+      ]
+    },
+    {
+      "name": "Company",
+      "item": [
+        {
+          "name": "Save Profile",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/company/profile",
+            "body": { "mode": "raw", "raw": "{\n  \"companyName\": \"Acme Careers\",\n  \"website\": \"https://acme.example\",\n  \"location\": \"Remote\",\n  \"description\": \"Hiring Java and React developers.\"\n}" }
+          }
+        },
+        { "name": "Company Jobs", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/company/jobs" } },
+        {
+          "name": "Post Job",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/company/jobs",
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"Backend Developer\",\n  \"description\": \"Build Spring Boot APIs.\",\n  \"location\": \"Remote\",\n  \"salaryRange\": \"6-10 LPA\",\n  \"employmentType\": \"Full-time\"\n}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Candidate",
+      "item": [
+        { "name": "Approved Jobs", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/jobs" } },
+        {
+          "name": "Apply",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/jobs/1/apply",
+            "body": { "mode": "raw", "raw": "{\n  \"coverLetter\": \"I am interested in this role.\"\n}" }
+          }
+        },
+        { "name": "My Applications", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/candidate/applications" } }
+      ]
+    }
+  ]
+}
