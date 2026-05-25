@@ -1,4 +1,4 @@
-# JobApp Interview Assignment
+# JobApp
 
 Full-stack job portal built with Spring Boot, PostgreSQL, JWT/RBAC, and React + Vite.
 
